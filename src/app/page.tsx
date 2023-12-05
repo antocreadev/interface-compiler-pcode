@@ -2,6 +2,10 @@
 import { useRef, useState } from "react";
 import SyntaxAnalysis from "@/compiler/SyntaxAnalysis";
 
+import type { RootState } from '@/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '@/features/counter/counterSlice'
+
 export default function Home() {
   // ref
   const contentTextArea = useRef<HTMLTextAreaElement>(null);
@@ -10,6 +14,9 @@ export default function Home() {
   const [content, setContent] = useState<string>("");
   const [ast, setAST] = useState<any>(null);
   const [error, setError] = useState<string>("");
+
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
     <main>
@@ -36,6 +43,25 @@ export default function Home() {
       <p>{content}</p>
       <pre>{JSON.stringify(ast, null, 2)}</pre>
       <p>Erreur : {error}</p>
+
+
+      <div>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+      </div>
+    </div>
     </main>
   );
 }
