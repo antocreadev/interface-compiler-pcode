@@ -1,26 +1,42 @@
 "use client";
+// import hook react
 import { useRef, useState } from "react";
+
+// import compiler
 import SyntaxAnalysis from "@/compiler/SyntaxAnalysis";
 
+// import Components
+import TextareaCode from "@/app/components/textareaCode";
+
+// import redux toolkit
 import type { RootState } from '@/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from '@/features/counter/counterSlice'
 
 export default function Home() {
-  // ref
+
+  // ref react
   const contentTextArea = useRef<HTMLTextAreaElement>(null);
 
-  // state
+  // state react
   const [content, setContent] = useState<string>("");
   const [ast, setAST] = useState<any>(null);
   const [error, setError] = useState<string>("");
 
+  // redux toolkit
   const count = useSelector((state: RootState) => state.counter.value)
+  const code = useSelector((state: RootState) => state.code.value)
   const dispatch = useDispatch()
 
   return (
     <main>
-<textarea
+      
+    <TextareaCode></TextareaCode>
+    <p>{code}</p>
+
+
+
+{/* <textarea
   onChange={() => {
     if (contentTextArea && contentTextArea.current) {
       const newContent = contentTextArea.current.value;
@@ -38,14 +54,14 @@ export default function Home() {
     }
   }}
   ref={contentTextArea}
-></textarea>
+></textarea> */}
 
-      <p>{content}</p>
+      {/* <p>{content}</p>
       <pre>{JSON.stringify(ast, null, 2)}</pre>
-      <p>Erreur : {error}</p>
+      <p>Erreur : {error}</p> */}
 
 
-      <div>
+      {/* <div>
       <div>
         <button
           aria-label="Increment value"
@@ -61,7 +77,7 @@ export default function Home() {
           Decrement
         </button>
       </div>
-    </div>
+    </div> */}
     </main>
   );
 }
