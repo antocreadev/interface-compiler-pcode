@@ -3,14 +3,16 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import counterReducer from '@/features/counter/counterSlice'
 import codeReducer from '@/features/code/codeSlice'
-import { astSlice } from '@/features/ast/astSlice'
+import astReducer  from '@/features/ast/astSlice'
+import errorReducer from '@/features/error/errorSlice'
 
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     code: codeReducer,
-    ast : astSlice.reducer,
+    ast : astReducer,
+    error : errorReducer
   },
 })
 
