@@ -3,13 +3,16 @@
 import { useRef } from "react";
 
 // import redux toolkit
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/store";
 import { updateCode } from "@/features/code/codeSlice";
 import { updateAst } from "@/features/ast/astSlice";
 import { updateError } from "@/features/error/errorSlice";
 
 // import compiler tools
 import SyntaxAnalysis from "@/compiler/SyntaxAnalysis";
+import TableSymbole from "@/compiler/TableSymbole";
+import { updateTableSym } from "@/features/tableSym/tableSymSlice";
 
 const TextareaCode = () => {
   // ref react
@@ -17,9 +20,11 @@ const TextareaCode = () => {
 
   // redux toolkit
   const dispatch = useDispatch();
+  const ast = useSelector((state : RootState) => state.ast.value);
 
   // tool of compiler
   const parser = new SyntaxAnalysis();
+
 
   return (
     <textarea
@@ -33,6 +38,10 @@ const TextareaCode = () => {
           try {
             const newAST = parser.produceAST(newContent);
             dispatch(updateAst(newAST));
+            if (ast && ast.body){
+              const newTableSym = new TableSymbole(ast.body)
+              dispatch(updateTableSym(newTableSym.generateTableSymbole(ast.body)))
+            }
             dispatch(updateError(""));
           } catch (error) {
             if (error instanceof Error) {

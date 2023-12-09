@@ -71,8 +71,6 @@ export default class TranslatePcode {
             this.add_opr("LDI",stmt.right.value)
         }
 
-
-
         // reucrsive call
         if (this.isBinaryExpr(stmt.left)) {
             this.browseBinaryExpr(stmt.left)
@@ -117,6 +115,7 @@ export default class TranslatePcode {
         }
         else{
             console.error("Error : operator is not correct")
+            throw new Error("Error : operator is not correct");
             // Deno.exit(1)
         }
     }
@@ -133,6 +132,8 @@ export default class TranslatePcode {
             }
             else{
                 console.error("Error : function name is not read")
+                throw new Error("Error : function name is not read");
+
                 // Deno.exit(1)
             }
         }
@@ -144,7 +145,9 @@ export default class TranslatePcode {
         else if (this.isIdentifier(value)) {
             if (this.tablesym.indexOf(value.symbol) === -1) {
                 console.error(`Error : variable ${value.symbol} not declared`);
-                process.exit(1);
+                throw new Error(`Error : variable ${value.symbol} not declared`);
+
+                
             }
             this.add_opr("LDA",this.tablesym.indexOf(value.symbol))
             this.add_opr("LDV")
@@ -169,6 +172,7 @@ export default class TranslatePcode {
             }
             else{
                 console.error("Error : name of variable is not word")
+                throw new Error("Error : name of variable is not word");
                 // Deno.exit(1)
             }
             };
@@ -181,7 +185,8 @@ export default class TranslatePcode {
                 if (identifier) {
                     if (this.tablesym.indexOf(identifier.value) === -1) {
                         console.error(`Error : variable ${identifier.value} not declared`);
-                        process.exit(1);
+                        throw new Error(`Error : variable ${identifier.value} not declared`);
+
                     } else {
                         this.add_opr("LDA",this.tablesym.indexOf(identifier.value))
                     }
@@ -197,7 +202,7 @@ export default class TranslatePcode {
                 const args= node.arguments;
                 if (functionName !== "write" || args.length != 1 || !this.isIdentifier(args[0]) || this.tablesym.indexOf(args[0].symbol) === -1){
                     console.error("Error : function name is not write or number of arguments is not 1")
-                    // Deno.exit(1)
+                    throw new Error("Error : function name is not write or number of arguments is not 1");
                 }
                 else{
                     this.add_opr("LDA",this.tablesym.indexOf(args[0].symbol))

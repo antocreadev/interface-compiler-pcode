@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 // import components
 import Ast from "./components/Ast";
 import Error from "./components/Error";
+import TableSym from "./components/TableSym";
 
 export default function Home() {
   // redux toolkit
@@ -20,6 +21,7 @@ export default function Home() {
     <pre>{code}</pre>
     <Ast></Ast>
     <Error></Error>
+    <TableSym></TableSym>
 
 
     </main>

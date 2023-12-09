@@ -5,14 +5,15 @@ import counterReducer from '@/features/counter/counterSlice'
 import codeReducer from '@/features/code/codeSlice'
 import astReducer  from '@/features/ast/astSlice'
 import errorReducer from '@/features/error/errorSlice'
-
+import tableSymReducer from '@/features/tableSym/tableSymSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     code: codeReducer,
     ast : astReducer,
-    error : errorReducer
+    error : errorReducer,
+    tableSym : tableSymReducer,
   },
 })
 
