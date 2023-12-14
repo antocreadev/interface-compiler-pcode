@@ -46,8 +46,8 @@ export interface Assignment extends Stmt {
   value: Expr;
 }
 export interface ValueIdentifierInAssignment {
-  value : string;
-  type : number;
+  value: string;
+  type: number;
 }
 
 export interface DoWhileLoop extends Stmt {

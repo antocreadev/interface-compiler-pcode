@@ -20,11 +20,10 @@ const TextareaCode = () => {
 
   // redux toolkit
   const dispatch = useDispatch();
-  const ast = useSelector((state : RootState) => state.ast.value);
+  const ast = useSelector((state: RootState) => state.ast.value);
 
   // tool of compiler
   const parser = new SyntaxAnalysis();
-
 
   return (
     <textarea
@@ -38,9 +37,11 @@ const TextareaCode = () => {
           try {
             const newAST = parser.produceAST(newContent);
             dispatch(updateAst(newAST));
-            if (ast && ast.body){
-              const newTableSym = new TableSymbole(ast.body)
-              dispatch(updateTableSym(newTableSym.generateTableSymbole(ast.body)))
+            if (ast && ast.body) {
+              const newTableSym = new TableSymbole(ast.body);
+              dispatch(
+                updateTableSym(newTableSym.generateTableSymbole(ast.body))
+              );
             }
             dispatch(updateError(""));
           } catch (error) {

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Stmt } from '@/compiler/ast';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Stmt } from "@/compiler/ast";
 export interface tableSymState {
   value: string[] | null;
 }
@@ -9,7 +9,7 @@ const initialState: tableSymState = {
 };
 
 export const tableSymSlice = createSlice({
-  name: 'tableSym',
+  name: "tableSym",
   initialState,
   reducers: {
     updateTableSym: (state, action: PayloadAction<string[]>) => {
