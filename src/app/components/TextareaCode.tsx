@@ -39,17 +39,17 @@ const TextareaCode = () => {
         const newAST = parser.produceAST(newContent);
         dispatch(updateAst(newAST));
 
-        if (ast && ast.body) {
+        if (newAST  && newAST.body) {
           // Génération de la table des symboles
-          const newTableSym = new TableSymbole(ast.body);
-          dispatch(updateTableSym(newTableSym.generateTableSymbole(ast.body)));
+          const newTableSym = new TableSymbole(newAST.body);
+          dispatch(updateTableSym(newTableSym.generateTableSymbole(newAST.body)));
 
           if (tableSym) {
             // Traduction du Pcode
-            const translatePcode = new TranslatePcode(tableSym, ast.body);
+            const translatePcode = new TranslatePcode(tableSym, newAST.body);
 
             try {
-              translatePcode.generate_pcode(ast.body);
+              translatePcode.generate_pcode(newAST.body);
               const pcode = translatePcode.get_pcode();
               dispatch(updatePcode(pcode));
             } catch (error) {
