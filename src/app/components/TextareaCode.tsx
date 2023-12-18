@@ -1,5 +1,6 @@
+"use client";
 // Import des dépendances
-import React, { useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store";
 
@@ -14,29 +15,25 @@ import { updatePcode } from "@/features/pcode/pcode";
 import SyntaxAnalysis from "@/compiler/SyntaxAnalysis";
 import TableSymbole from "@/compiler/TableSymbole";
 import TranslatePcode from "@/compiler/TranslatePcode";
+import CodeEditor from "./CodeEditor";
+
 
 // Composant principal
 const TextareaCode = () => {
-  // Référence vers l'élément textarea
-  const contentTextArea = useRef<HTMLTextAreaElement>(null);
 
   // Accès au store Redux
   const dispatch = useDispatch();
-  const ast = useSelector((state: RootState) => state.ast.value);
   const tableSym = useSelector((state: RootState) => state.tableSym.value);
+  const code = useSelector((state: RootState) => state.code.value);
 
   // Instance du parser SyntaxAnalysis
-  const parser = new SyntaxAnalysis();
+  const parser = useMemo(() => new SyntaxAnalysis(), []);
 
   // Gestionnaire d'événement pour le changement de texte
-  const handleTextChange = () => {
-    if (contentTextArea && contentTextArea.current) {
-      const newContent = contentTextArea.current.value;
-      dispatch(updateCode(newContent));
-
+  const handleCompilerFunction = useCallback((newcode : string) => {
       try {
         // Analyse syntaxique
-        const newAST = parser.produceAST(newContent);
+        const newAST = parser.produceAST(newcode);
         dispatch(updateAst(newAST));
 
         if (newAST  && newAST.body) {
@@ -66,18 +63,17 @@ const TextareaCode = () => {
         if (error instanceof Error) {
           dispatch(updateError(error.message));
         }
-      }
     }
-  };
+  }, [dispatch, parser, tableSym]);
 
+  const handleCodeEditorChange = useCallback((newCode: string) => {
+    dispatch(updateCode(newCode));
+    handleCompilerFunction(newCode);
+  }, [dispatch, handleCompilerFunction]);
   return (
-    <textarea
-      className="textarea resize-none"
-      placeholder="var a = 10"
-      ref={contentTextArea}
-      onChange={handleTextChange}
-    ></textarea>
+    <div>
+    <CodeEditor initialValue={code}  onChange={handleCodeEditorChange} />
+    </div>
   );
 };
-
 export default TextareaCode;
