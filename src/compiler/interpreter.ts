@@ -1,5 +1,5 @@
-import { pcode } from "./TranslatePcode.js";
-import Stack from "./Stack.js";
+import { pcode } from "./TranslatePcode";
+import Stack from "./Stack";
 export const interpreter = (pcode: pcode[]) => {
   const stack = new Stack();
   const historique: number[][] = [];

@@ -1,20 +1,19 @@
 // import redux toolkit
 import type { RootState } from "@/store";
 import { useSelector } from "react-redux";
-import interpreter from "@/compiler/interpreter";
 
-export default function Interpreter() {
+export default function Pcode() {
   // redux toolkit
   const pcode = useSelector((state: RootState) => state.pcode.value);
   return (
-    <div
-      onClick={() => {
-        if (pcode) {
-          interpreter(pcode);
-        }
-      }}
-    >
-      Interpreter
+    <div>
+      {pcode != null
+        ? pcode.map((item, index) => (
+            <div key={index}>
+              <p>{item.op} {item.arg}</p>
+            </div>
+          ))
+        : null}
     </div>
   );
 }

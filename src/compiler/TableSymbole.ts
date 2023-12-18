@@ -23,7 +23,6 @@ export default class TableSymbole {
       if (this.isVariableDeclaration(element)) {
         const symbol = element.identifier.symbol;
         if (!this.declarationsSet.has(symbol)) {
-          console.log(symbol);
           this.declarations.push(symbol);
           this.declarationsSet.add(symbol);
         }
