@@ -37,6 +37,7 @@ const CodeEditor: React.FC<CodeEditor> = ({ initialValue, onChange, readonly }) 
       height='100%'
       readOnly={readonly}
       wrapEnabled={true}
+
     />
   );
 };

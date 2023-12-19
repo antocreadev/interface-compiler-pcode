@@ -6,7 +6,7 @@ export interface CodeState {
 }
 
 const initialState: CodeState = {
-  value: "",
+  value: `var a = 0\nvar b = 0\ndo{\n  a = read()\n  b = b +a\n}\nwhile(a!=0)\nwrite(b)`,
 };
 
 export const codeSlice = createSlice({
