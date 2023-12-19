@@ -3,6 +3,7 @@ import Stack from "./Stack";
 export const interpreter = (pcode: pcode[]) => {
   const stack = new Stack();
   const historique: number[][] = [];
+  const outputArr: number[] = [];
   let PC = 0;
   while (pcode[PC].op !== "HLT") {
     const operation = pcode[PC].op;
@@ -65,7 +66,11 @@ export const interpreter = (pcode: pcode[]) => {
         stack.eql();
         break;
       case "PRN":
-        stack.prn();
+        const output = stack.prn();
+        if (output) {
+          console.log(output);
+          outputArr.push(output);
+        }
         break;
 
       case "BZE":
@@ -82,7 +87,7 @@ export const interpreter = (pcode: pcode[]) => {
     PC++;
     historique.push([...stack.value]);
   }
-  return historique;
+  return { historique, outputArr };
 };
 
 export default interpreter;

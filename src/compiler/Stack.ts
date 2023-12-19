@@ -72,7 +72,7 @@ class Stack {
   };
 
   prn = () => {
-    console.log(this.value.pop());
+    return this.value.pop()
   };
 
   inn = () => {

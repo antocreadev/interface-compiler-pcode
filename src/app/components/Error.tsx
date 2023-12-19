@@ -6,5 +6,5 @@ import { useSelector } from "react-redux";
 export default function Error() {
   // redux toolkit
   const error = useSelector((state: RootState) => state.error.value);
-  return <p>{error}</p>;
+  return <p className="text-red-400">{error}</p>;
 }

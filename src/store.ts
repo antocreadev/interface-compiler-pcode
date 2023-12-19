@@ -5,7 +5,9 @@ import codeReducer from "@/features/code/codeSlice";
 import astReducer from "@/features/ast/astSlice";
 import errorReducer from "@/features/error/errorSlice";
 import tableSymReducer from "@/features/tableSym/tableSymSlice";
-import pcodeReducer from "@/features/pcode/pcode"
+import pcodeReducer from "@/features/pcode/pcodeSlice";
+import histPcodeReducer from "@/features/histoPcode/histoPcodeSlice";
+import outPutArrReducer from "@/features/outPutArr/outPutArrSlice";
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
@@ -13,7 +15,9 @@ export const store = configureStore({
     ast: astReducer,
     error: errorReducer,
     tableSym: tableSymReducer,
-    pcode : pcodeReducer,
+    pcode: pcodeReducer,
+    histPcode: histPcodeReducer,
+    outPutArr: outPutArrReducer,
   },
 });
 

@@ -6,15 +6,22 @@ import 'ace-builds/src-noconflict/theme-monokai';
 
 interface CodeEditor{
   initialValue: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
+  readonly?: boolean;
 }
 
-const CodeEditor: React.FC<CodeEditor> = ({ initialValue, onChange }) => {
+const CodeEditor: React.FC<CodeEditor> = ({ initialValue, onChange, readonly }) => {
   const editorRef = useRef<AceEditor | null>(null);
 
   const handleEditorChange = (value: string) => {
+    if (onChange){
     onChange(value);
+    }
   };
+
+  if (readonly == undefined || readonly == null){
+    readonly = false;
+  }
 
   return (
     <AceEditor
@@ -28,6 +35,8 @@ const CodeEditor: React.FC<CodeEditor> = ({ initialValue, onChange }) => {
       setOptions={{ tabSize: 2 }}
       width='100%'
       height='100%'
+      readOnly={readonly}
+      wrapEnabled={true}
     />
   );
 };
