@@ -17,8 +17,10 @@ export default function Home() {
   // redux toolkit
   const code = useSelector((state: RootState) => state.code.value);
   return (
-    <main>
-      <TextareaCode></TextareaCode>
+    <main className="w-screen h-screen">
+      <div className="w-1/2 h-1/2">
+        <TextareaCode></TextareaCode>
+      </div>
       <Interpreter></Interpreter>
       <pre>{code}</pre>
       <Ast></Ast>

@@ -26,6 +26,8 @@ const CodeEditor: React.FC<CodeEditor> = ({ initialValue, onChange }) => {
       name="code-editor"
       editorProps={{ $blockScrolling: true }}
       setOptions={{ tabSize: 2 }}
+      width='100%'
+      height='100%'
     />
   );
 };

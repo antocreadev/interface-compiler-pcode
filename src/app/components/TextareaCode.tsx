@@ -71,9 +71,7 @@ const TextareaCode = () => {
     handleCompilerFunction(newCode);
   }, [dispatch, handleCompilerFunction]);
   return (
-    <div>
     <CodeEditor initialValue={code}  onChange={handleCodeEditorChange} />
-    </div>
   );
 };
 export default TextareaCode;
