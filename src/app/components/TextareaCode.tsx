@@ -1,6 +1,6 @@
 "use client";
 // Import des dépendances
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store";
 
@@ -43,9 +43,9 @@ const TextareaCode = () => {
             updateTableSym(newTableSym.generateTableSymbole(newAST.body))
           );
 
-          if (tableSym) {
+          if (newTableSym.generateTableSymbole(newAST.body)) {
             // Traduction du Pcode
-            const translatePcode = new TranslatePcode(tableSym, newAST.body);
+            const translatePcode = new TranslatePcode(newTableSym.generateTableSymbole(newAST.body), newAST.body);
 
             try {
               translatePcode.generate_pcode(newAST.body);
@@ -65,7 +65,7 @@ const TextareaCode = () => {
         }
       }
     },
-    [dispatch, parser, tableSym]
+    [dispatch, parser]
   );
 
   const handleCodeEditorChange = useCallback(
@@ -75,6 +75,14 @@ const TextareaCode = () => {
     },
     [dispatch, handleCompilerFunction]
   );
+  // play once handleCodeEditorChange
+  useEffect(() => {
+    handleCompilerFunction(code);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   return <CodeEditor initialValue={code} onChange={handleCodeEditorChange} />;
 };
 export default TextareaCode;
